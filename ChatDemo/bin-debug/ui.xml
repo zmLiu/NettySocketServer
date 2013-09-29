@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comps>
+	<Panel width="500" height="395">
+		<VBox x="10" y="10" spacing="6">
+			<Label text="简易聊天室"/>
+			<HBox>
+				<Label text="用户名:"/>
+				<InputText id="user_name" width="200"/>
+				<PushButton id="login_btn" label="登陆" event="click:onLoginBtn"/>
+			</HBox>
+			<HBox>
+				<Label text="输入聊天信息:"/>
+				<InputText id="chat_message" width="200"/>
+				<PushButton id="send_chat_btn" label="发送" event="click:onSendChatBtn"/>
+			</HBox>
+			<TextArea id="logs" width="480" height="280"></TextArea>
+		</VBox>
+	</Panel>
+</comps>

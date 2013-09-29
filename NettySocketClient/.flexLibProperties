@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="com.lzm.netty.socket.NettySocket"/>
+    <classEntry path="com.lzm.netty.socket.SocketEvent"/>
+    <classEntry path="com.lzm.netty.NettyClient"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
