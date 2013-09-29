@@ -13,7 +13,7 @@ import com.lzm.netty.decoder.BytesDecoder;
 import com.lzm.netty.decoder.BytesDecoder_Crossdomain;
 import com.lzm.netty.handler.ServerHandler;
 
-public class NettyServer {
+public class NettySocketServer {
 	private int port;
 	private boolean needCrossdomain;
 	
@@ -22,7 +22,7 @@ public class NettyServer {
 	 * @param	port	监听端口
 	 * @param	needCrossdomain	是否返回策略文件(在web中运行需要)
 	 * */
-	public NettyServer(int port,boolean needCrossdomain) {
+	public NettySocketServer(int port,boolean needCrossdomain) {
 		this.port = port;
 		this.needCrossdomain = needCrossdomain;
 	}
