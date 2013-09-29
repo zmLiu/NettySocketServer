@@ -43,7 +43,7 @@ package com.lzm.netty
 		 * */
 		private function onConnect(e:SocketEvent):void{
 			_isConnect = true;
-			onConnectFun();
+			if(onConnectFun) onConnectFun();
 		}
 		
 		/**
@@ -58,7 +58,7 @@ package com.lzm.netty
 			_socket.removeEventListener(SocketEvent.SECURITY_ERROR,onSecurityError);
 			_socket.removeEventListener(SocketEvent.IO_ERROR,onIOError);
 			
-			onCloseFun();
+			if(onCloseFun) onCloseFun();
 		}
 		
 		/**
