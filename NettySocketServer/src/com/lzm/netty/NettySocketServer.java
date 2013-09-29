@@ -8,23 +8,27 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
 
 import com.lzm.netty.decoder.BytesDecoder;
 import com.lzm.netty.decoder.BytesDecoder_Crossdomain;
+import com.lzm.netty.handler.IdleHandler;
 import com.lzm.netty.handler.ServerHandler;
 
 public class NettySocketServer {
-	private int port;
-	private boolean needCrossdomain;
+	//服务器监听端口
+	public int port;
+	//是否返回策略文件(在web中运行需要)
+	public boolean needCrossdomain = true;
+	//连接空闲时间
+	public int idleTimeSeconds = 60;
 	
 	/**
 	 * 创建服务器
 	 * @param	port	监听端口
-	 * @param	needCrossdomain	是否返回策略文件(在web中运行需要)
 	 * */
-	public NettySocketServer(int port,boolean needCrossdomain) {
+	public NettySocketServer(int port) {
 		this.port = port;
-		this.needCrossdomain = needCrossdomain;
 	}
 	
 	public void run() throws Exception {
@@ -36,9 +40,9 @@ public class NettySocketServer {
 				@Override
 				public void initChannel(SocketChannel ch)throws Exception {
 					if(needCrossdomain){
-						ch.pipeline().addLast(new BytesDecoder_Crossdomain(),new ServerHandler());
+						ch.pipeline().addLast(new BytesDecoder_Crossdomain(),new ServerHandler(),new IdleStateHandler(idleTimeSeconds, 0, 0),new IdleHandler());
 					}else{
-						ch.pipeline().addLast(new BytesDecoder(),new ServerHandler());
+						ch.pipeline().addLast(new BytesDecoder(),new ServerHandler(),new IdleStateHandler(idleTimeSeconds, 0, 0),new IdleHandler());
 					}
 				}
 			}).option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
