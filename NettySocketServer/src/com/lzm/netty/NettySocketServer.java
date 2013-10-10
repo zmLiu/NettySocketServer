@@ -12,26 +12,32 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 import com.lzm.netty.decoder.BytesDecoder;
 import com.lzm.netty.decoder.BytesDecoder_Crossdomain;
+import com.lzm.netty.handler.CommandExecuteThread;
 import com.lzm.netty.handler.IdleHandler;
 import com.lzm.netty.handler.ServerHandler;
 
 public class NettySocketServer {
-	//·şÎñÆ÷¼àÌı¶Ë¿Ú
+	//æœåŠ¡å™¨ç›‘å¬ç«¯å£
 	public int port;
-	//ÊÇ·ñ·µ»Ø²ßÂÔÎÄ¼ş(ÔÚwebÖĞÔËĞĞĞèÒª)
+	//æ˜¯å¦è¿”å›ç­–ç•¥æ–‡ä»¶(åœ¨webä¸­è¿è¡Œéœ€è¦)
 	public boolean needCrossdomain = true;
-	//Á¬½Ó¿ÕÏĞÊ±¼ä
+	//è¿æ¥ç©ºé—²æ—¶é—´
 	public int idleTimeSeconds = 60;
 	
+	//æ‰§è¡Œå‘½ä»¤çš„çº¿ç¨‹æ•°
+	public int executeCommandThreadCount = 1;
+	
 	/**
-	 * ´´½¨·şÎñÆ÷
-	 * @param	port	¼àÌı¶Ë¿Ú
+	 * åˆ›å»ºæœåŠ¡å™¨
+	 * @param	port	ç›‘å¬ç«¯å£
 	 * */
 	public NettySocketServer(int port) {
 		this.port = port;
 	}
 	
 	public void run() throws Exception {
+		CommandExecuteThread.initExecuteCommandThread(executeCommandThreadCount);
+		
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
